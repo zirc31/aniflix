@@ -1,25 +1,15 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 
-const chatMessageSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    required: true
-  },
-  sender: {
-    type: String,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  }
+const ChatSchema = mongoose.Schema({
+    roomId: String,
+    chatData: [{
+      roomId: String,
+      sender: String,
+      avatar: String,
+      message: String,
+      time: String
+    }],
 });
 
-chatMessageSchema.virtual('formattedTimestamp').get(function() {
-  return moment(this.timestamp).format('YYYY-MM-DD HH:mm:ss');
-});
-
-const ChatMessage = mongoose.model('ChatMessage', chatMessageSchema);
-
-module.exports = ChatMessage;
+module.exports = mongoose.model( 'Chat', ChatSchema );
+// collection name : chats, model name: Chat

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
+import axios from 'axios';
 import { ChatContext } from '../pages/ChatRoom';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -21,19 +22,53 @@ const ChatArea = ( { socket, username, roomId } ) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const chatContext = useContext( ChatContext );
+    // ChatContext
+    // message, setMessage, chatList, setChatList, chatAvatar, chatListCounter, setChatListCounter
+    // const { isTokenExist, setIsTokenExist } = useContext(ChatContext);
+    // const [ message, setMessage ] = useContext(ChatContext);
+    // const [ chatList, setChatList ] = useContext(ChatContext);
+    // const [ chatAvatar, setChatAvatar ] = useContext(ChatContext);
+    // const [ chatListCounter, setChatListCounter ] = useContext(ChatContext);
+
 
     const sendMessage = async () => {
         if ( chatContext.message !== '' ) {
             const chatData = {
                 roomId: roomId,
                 sender: username,
-                avatar: chatContext.avatar,
+                avatar: chatContext.chatAvatar,
                 message: chatContext.message,
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
             };
             await socket.emit("send_message", chatData);
             chatContext.setChatList((list) => [...list, chatData]);
+            // setChatList((list) => [...list, chatData]);
+
+            console.log(chatContext.chatListCounter);
+
+            const url = 'http://localhost:8000/api/v1/chat/add/message';
+            // http://localhost:8000/api/v1/chat/delete/message
+            const requestData = {
+                roomId: roomId,
+                chatData: chatData
+            };
+            console.log(requestData);
+            const updateChatDb = async (event) => {
+                try {
+                    const response = await axios.post(url, requestData);
+                    if (response.status === 200 || response.status === 201) {
+                        console.log(`Successfully updated the chat.`);
+                    }
+                } catch (error) {
+                    if (error.response && (error.response.status === 404 || error.response.status === 400)) {
+                        const errorMessage = error.response.data.error; // Get the error message from the response
+                    }
+                }
+            }
+            updateChatDb();
+
             chatContext.setMessage('');
+            // setMessage('');
         }
     };
 
@@ -43,6 +78,10 @@ const ChatArea = ( { socket, username, roomId } ) => {
             <Textarea
                 onChange={(event) => {
                     chatContext.setMessage(event.target.value);
+                    // setMessage(event.target.value);
+                }}
+                onKeyPress={(event) => {
+                    event.key === "Enter" && sendMessage();
                 }}
                 placeholder="Type something here…"
                 minRows={3}

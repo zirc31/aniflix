@@ -14,6 +14,11 @@ const MongoDbPass = process.env.MONGODB_PASS;
 const MongoDbCluster = process.env.MONGODB_CLUSTER;
 const MongoDbDatabase = process.env.MONGODB_DATABASE;
 
+// Database
+const mongoose = require('mongoose');
+// mongoose.connect(`mongodb+srv://${MongoDbUser}:${MongoDbPass}@${MongoDbCluster}/${MongoDbDatabase}`);
+mongoose.connect(`mongodb://127.0.0.1:27017/${MongoDbDatabase}`);
+
 const PORT = process.env.APP_PORT;
 const ioPORT = process.env.APP_PORT_IO;
 const BaseURL = `/api/v1`;
@@ -50,7 +55,7 @@ io.on('connection', (socket) => {
         // when a user send a message, socket will received the user information including the message.
         // then send it to another event which is receive_message
         // and send to to everyone in the roomId
-        socket.to(data.roomId).emit("receive_message", data)
+        socket.to(data.roomId).emit("receive_message", data);
     });
 
     // if the browser being used by the user disconnected.
@@ -60,15 +65,11 @@ io.on('connection', (socket) => {
 
 });
 
-// Database
-const mongoose = require('mongoose');
-// mongoose.connect(`mongodb+srv://${MongoDbUser}:${MongoDbPass}@${MongoDbCluster}/${MongoDbDatabase}`);
-mongoose.connect(`mongodb://127.0.0.1:27017/${MongoDbDatabase}`);
-
 // Routes
 const UserRoutes = require('./routes/UserRoutes');
 const RoomRoutes = require('./routes/RoomRoutes');
 const AniflixRoutes = require('./routes/AniflixRoutes');
+const ChatRoutes = require('./routes/chatRoutes');
 
 app.use( cors() );
 app.use( bodyParser.json() );
@@ -89,6 +90,7 @@ app.get('/', ( request, response ) => {
 app.use( `${BaseURL}/user`, UserRoutes );
 app.use( `${BaseURL}/room`, RoomRoutes );
 app.use( `${BaseURL}/fetch`, AniflixRoutes );
+app.use( `${BaseURL}/chat`, ChatRoutes );
 
 app.listen( PORT, () => { console.log(`App Server running on port ${PORT}.`) } );
 server.listen( ioPORT, () => console.log( `Socket Server listening on port ${ioPORT}` ));
