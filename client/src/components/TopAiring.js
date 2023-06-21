@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
+
 const TopAiring = () => {
   const [topAiring, setTopAiring] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/top-airing');
+        const response = await fetch(`${BaseURLofBE}/api/v1/fetch/get/riimuru/top-airing`);
         const data = await response.json();
         setTopAiring(data.data);
       } catch (error) {

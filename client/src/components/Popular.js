@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
+
 const PopularAnime = () => {
   const [animeList, setAnimeList] = useState([]);
 
@@ -10,7 +13,7 @@ const PopularAnime = () => {
 
   const fetchPopularAnime = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/popular');
+      const response = await fetch(`${BaseURLofBE}/api/v1/fetch/get/riimuru/popular`);
       const data = await response.json();
       setAnimeList(data.data);
     } catch (error) {

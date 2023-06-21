@@ -16,8 +16,16 @@ const MongoDbDatabase = process.env.MONGODB_DATABASE;
 
 // Database
 const mongoose = require('mongoose');
-// mongoose.connect(`mongodb+srv://${MongoDbUser}:${MongoDbPass}@${MongoDbCluster}/${MongoDbDatabase}`);
-mongoose.connect(`mongodb://127.0.0.1:27017/${MongoDbDatabase}`);
+mongoose.connect(`mongodb+srv://${MongoDbUser}:${MongoDbPass}@${MongoDbCluster}/${MongoDbDatabase}`);
+// mongoose.connect(`mongodb://127.0.0.1:27017/${MongoDbDatabase}`);
+
+// Atlast MongoDB
+// const database = module.exports = () => {
+//     const connectionParams = {
+//         useNewUrlParser: true,
+//         useUnifi
+//     }
+// }
 
 const PORT = process.env.APP_PORT;
 const ioPORT = process.env.APP_PORT_IO;

@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState, useEffect, useRef, createContext } from 'react';
 import axios from 'axios';
-import { Box, Divider } from '@mui/material'
-import ChatArea from '../components/ChatArea'
-import ChatGroupAvatar from '../components/ChatGroupAvatar'
-import ChatReceiver, { ChatSender } from '../components/ChatMessage'
+import { Box, Divider } from '@mui/material';
+import ChatArea from '../components/ChatArea';
+import ChatGroupAvatar from '../components/ChatGroupAvatar';
+import ChatReceiver, { ChatSender } from '../components/ChatMessage';
 
 import io from 'socket.io-client';
 const socket = io.connect(process.env.REACT_APP_SOCKET_IO_SERVER_HTTP);
 
 export const ChatContext = createContext();
+
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
 
 const ChatRoom = ( props ) => {
 
@@ -37,7 +40,7 @@ const ChatRoom = ( props ) => {
 
     const getUserData = async () => {
         try {
-            const endpointUrl = `http://localhost:8000/api/v1/user/data`;
+            const endpointUrl = `${BaseURLofBE}/api/v1/user/data`;
             const response = await axios.get( endpointUrl, {
                 headers: {
                 'Authorization': `Bearer ${localToken}`

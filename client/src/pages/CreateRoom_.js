@@ -16,10 +16,7 @@ import SnackbarContent from '@mui/material/SnackbarContent';
 import { useNavigate } from "react-router-dom";
 import { AppContext } from '../App';
 import { useContext } from 'react';
-import {useEffect} from 'react';
-
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
+import {useEffect} from 'react'
 
 
 const darkTheme = createTheme({
@@ -45,11 +42,8 @@ function CreateRoom() {
     event.preventDefault();
     try{
       const url = createRoom
-        ? `${BaseURLofBE}/api/v1/room/create`
-        : `${BaseURLofBE}/api/v1/room/join`;
-        // ? 'https://aniflix-app.onrender.com/api/v1/room/create'
-        // : 'https://aniflix-app.onrender.com/api/v1/room/join';
-
+        ? 'http://localhost:8000/api/v1/room/create'
+        : 'http://localhost:8000/api/v1/room/join';
         const response = await axios.post(url, { roomid, password });
         const roomUID = response.data.roomUID; // Access the roomUID from the response
 
@@ -60,16 +54,14 @@ function CreateRoom() {
           setSuccessMessage(response.data.message);
           setSnackbar(true);
 
-          setTimeout(() => {  
-          navigate('/room'); 
-          }, 1000)
+          if(!createRoom)
+          {
+            setTimeout(() => {  
+            navigate('/room'); 
+  
+          }, 2000)
 
-          // if(!createRoom)
-          // {
-          //   setTimeout(() => {  
-          //   navigate('/room'); 
-          //   }, 2000)
-          // }
+          }
 
       };
     }
@@ -93,13 +85,13 @@ function CreateRoom() {
 
   useEffect(() => {
     if( localStorage.getItem("aniflix_token") === null ) {
-        setErrorMessage('User must be logged in to create a room');
+        setErrorMessage('User must be logged in to create  a room');
         setSnackbar(true);
         setIsTokenExist(false)
         setTimeout(() => {  
           navigate('/login-page');
-          localStorage.setItem('fromCreateRoom', 'true');
-        }, 1000);
+
+        }, 3000);
     } else {
         setIsTokenExist(true);
     }
@@ -149,7 +141,7 @@ function CreateRoom() {
                       label="Password"
                       type="password"
                       id="password"
-                      // autoComplete="new-password"
+                      autoComplete="new-password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}/>
                   </Grid>

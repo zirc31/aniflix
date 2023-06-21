@@ -26,8 +26,6 @@ import ChatRoom from './ChatRoom'
 import { AppContext } from '../App';
 import { useContext } from 'react';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
 
 const darkTheme = createTheme({
   palette: {
@@ -60,8 +58,7 @@ function Room() {
   useEffect(() => {
     const watchAnime = async () => {
       try {
-        const apiUrl = `${BaseURLofBE}/api/v1/fetch/watch/riimuru/${animeId}/${selectedAnime}`
-        // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/watch/riimuru/${animeId}/${selectedAnime}`
+        const apiUrl = `http://localhost:8000/api/v1/fetch/watch/riimuru/${animeId}/${selectedAnime}`
         const response = await axios.get(apiUrl);
         const { message, data } = response.data;
         setEpisodeId(data.sources[0].file)
@@ -79,8 +76,7 @@ function Room() {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        const response = await axios.get(`${BaseURLofBE}/api/v1/room/${roomId}`);
-        // const response = await axios.get(`https://aniflix-app.onrender.com/api/v1/room/${roomId}`);
+        const response = await axios.get(`http://localhost:8000/api/v1/room/${roomId}`);
         setRoomData(response.data.room);
 
       }
@@ -96,7 +92,7 @@ function Room() {
       setTimeout(() => {
         navigate('/login-page');
 
-      }, 1000);
+      }, 3000);
     } else {
       setIsTokenExist(true);
       const username = localStorage.getItem('username');

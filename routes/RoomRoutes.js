@@ -49,16 +49,25 @@ router.post('/create', (request, response) =>
 router.post('/join', (request, response) => {
 
     Room.findOne({ roomid: request.body.roomid }).then( dbResponse => {
-
-            bcrypt.compare( request.body.password, dbResponse.password )
-            .then( isValid => {
+        // if Room not exist
+        if( !dbResponse ) {
+            console.log({ status: 404, error: `Room not found!` });
+            return response.status( 404 ).send( { error: `Room not found!` } );
+        } else {
+        // else Room exist
+            // check for password
+            bcrypt.compare( request.body.password, dbResponse.password ).then( isValid => {
                 if( !isValid ){
-                    response.status( 404 ).send({ error: 'Invalid credentials' });
-                } else {
-                    response.status( 200 ).send({ message: "Login success!", roomUID: dbResponse.roomUID  });
+                    console.log({ status: 404, error: `Invalid credentials!` });
+                    return response.status( 404 ).send({ error: `Invalid credentials!` });
+                }else{
+                    console.log({ status: 200, message: 'Login success!', roomUID: dbResponse.roomUID });
+                    return response.status( 200 ).send( { message: 'Login success!', roomUID: dbResponse.roomUID } );
                 }
             });
-        });
+        }
+    });
+    
 })
 
 router.delete('/delete/:roomid', (request, response) =>

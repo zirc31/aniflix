@@ -25,9 +25,6 @@ import { useContext } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
-
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -50,8 +47,7 @@ function SearchPage() {
 
         try {
             event.preventDefault();
-            const apiUrl = `${BaseURLofBE}/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
-            // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
+            const apiUrl = `http://localhost:8000/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
             const response = await axios.get(apiUrl);
             const { message, data } = response.data;
 
@@ -67,8 +63,7 @@ function SearchPage() {
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
-                const apiUrl = `${BaseURLofBE}/api/v1/fetch/search/riimuru/title?keyword=${keyword}`;
-                // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/search/riimuru/title?keyword=${keyword}`;
+                const apiUrl = `http://localhost:8000/api/v1/fetch/search/riimuru/title?keyword=${keyword}`;
                 const response = await axios.get(apiUrl);
                 const { message, data } = response.data;
 

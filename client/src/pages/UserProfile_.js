@@ -25,9 +25,6 @@ import { useEffect } from 'react';
 import { AppContext } from '../App';
 import { useContext } from 'react';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
-
 ; const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -89,8 +86,7 @@ function UserProfile() {
                         Authorization: `Bearer ${token}`
                     }
                 };
-                const response = await axios.get(`${BaseURLofBE}/api/v1/user/data`, config);
-                // const response = await axios.get('https://aniflix-app.onrender.com/api/v1/user/data', config);
+                const response = await axios.get('http://localhost:8000/api/v1/user/data', config);
 
                 const { data } = response.data;
                 setFirstName(data.firstName);

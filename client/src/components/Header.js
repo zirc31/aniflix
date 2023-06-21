@@ -22,7 +22,7 @@ const Header = () => {
         <img className="logo" src={logo} alt="logo" />
       </div>
       <div className="search-bar-container">
-        <Grid container alignItems="center" spacing={2}>
+        {/* <Grid container alignItems="center" spacing={2}>
           <Grid item xs={8}>
             <TextField
               id="search"
@@ -45,10 +45,13 @@ const Header = () => {
               SEARCH
             </Button>
           </Grid>
-        </Grid>
+        </Grid> */}
+        <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+          <Button variant="contained">SEARCH ANIME</Button>
+        </Link>
       </div>
       <div className="buttons-container">
-        <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+        <Link to="/login-page" style={{ textDecoration: 'none' }}>
           <Button variant="contained">GET STARTED</Button>
         </Link>
       </div>

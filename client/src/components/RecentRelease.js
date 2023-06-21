@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
+
 const RecentReleases = () => {
   const [releases, setReleases] = useState([]);
 
   useEffect(() => {
     const fetchReleases = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/recent-release');
+        const response = await fetch(`${BaseURLofBE}/api/v1/fetch/get/riimuru/recent-release`);
         const data = await response.json();
         setReleases(data.data);
       } catch (error) {

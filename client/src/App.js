@@ -23,7 +23,7 @@ const App = () => {
 
   // check if user have token or is logged in.
   useEffect(() => {
-    if( localStorage.getItem("token") === null ) {
+    if( localStorage.getItem("aniflix_token") === null ) {
     } else {
         setIsTokenExist(true);
     }

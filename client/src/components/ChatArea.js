@@ -16,6 +16,9 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import Check from '@mui/icons-material/Check';
 import '@fontsource/public-sans';
 
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
+
 const ChatArea = ( { socket, username, roomId } ) => {
     const [italic, setItalic] = React.useState(false);
     const [fontWeight, setFontWeight] = React.useState('normal');
@@ -46,7 +49,7 @@ const ChatArea = ( { socket, username, roomId } ) => {
 
             console.log(chatContext.chatListCounter);
 
-            const url = 'http://localhost:8000/api/v1/chat/add/message';
+            const url = `${BaseURLofBE}/api/v1/chat/add/message`;
             // http://localhost:8000/api/v1/chat/delete/message
             const requestData = {
                 roomId: roomId,

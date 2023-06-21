@@ -24,9 +24,6 @@ import { IconButton } from '@mui/material';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
-
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -61,10 +58,8 @@ function LoginPage() {
     event.preventDefault();
     try {
       const url = register
-        ? `${BaseURLofBE}/api/v1/user/register`
-        : `${BaseURLofBE}/api/v1/user/login`;// this is auto dispay because register is false by default
-        // ? 'https://aniflix-app.onrender.com/api/v1/user/register'
-        // : 'https://aniflix-app.onrender.com/api/v1/user/login';// this is auto dispay because register is false by default
+        ? 'http://localhost:8000/api/v1/user/register'
+        : 'http://localhost:8000/api/v1/user/login';// this is auto dispay because register is false by default
 
       const requestData = register
         ? { email, username, password }
@@ -89,7 +84,6 @@ function LoginPage() {
 
         const fromRoom = localStorage.getItem('fromRoom');
         const fromUserPage = localStorage.getItem('fromUserPage');
-        const fromCreateRoom = localStorage.getItem('fromCreateRoom');
         console.log(fromRoom)
 
         if(fromRoom === 'true'){
@@ -97,16 +91,12 @@ function LoginPage() {
             localStorage.removeItem('fromRoom');
             navigate('/room', { state: { roomUID: roomUID }});
   
-          }, 1000);
+          }, 3000);
         } else if(fromUserPage === 'true')  {
           localStorage.removeItem('fromUserPage');
-          navigate("/user-profile");
-        } else if( fromCreateRoom === 'true' ) {
-          localStorage.removeItem( 'fromCreateRoom' );
-          navigate('/create-room');
-        } else {
-          navigate('/user-page');
+          navigate("/user-profile")
         }
+
 
       }
     } catch (error) {

@@ -25,8 +25,7 @@ import { useContext } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
+
 
 const darkTheme = createTheme({
   palette: {
@@ -75,8 +74,7 @@ function CreateRoomOptions() {
   const handleSearch = async (event) => {
     try {
       event.preventDefault();
-      const apiUrl = `${BaseURLofBE}/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
-      // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
+      const apiUrl = `http://localhost:8000/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
       const response = await axios.get(apiUrl);
       const { message, data } = response.data;
 
@@ -91,8 +89,7 @@ function CreateRoomOptions() {
   const handleImage = async (event, result) => {
     event.preventDefault();
     try {
-      const apiUrl = `${BaseURLofBE}/api/v1/fetch/info/riimuru/${result.animeId}`;
-      // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/info/riimuru/${result.animeId}`;
+      const apiUrl = `http://localhost:8000/api/v1/fetch/info/riimuru/${result.animeId}`;
       const response = await axios.get(apiUrl);
       const { message, data } = response.data;
       setAnimeId(result.animeId)
@@ -101,6 +98,8 @@ function CreateRoomOptions() {
       setSelectAnime(false)
       setAnimeWatch(result);
       setEpisodeAnime(data.episodesList.map((episode) => episode.episodeId));
+
+
     }
     catch (error) {
       console.error(error);
@@ -162,12 +161,13 @@ function CreateRoomOptions() {
       const fetchEp = async (result) => {
 
         try {
-          const apiUrl = `${BaseURLofBE}/api/v1/fetch/info/riimuru/${animeIden}`;
-          // const apiUrl = `https://aniflix-app.onrender.com/api/v1/fetch/info/riimuru/${animeIden}`;
+          const apiUrl = `http://localhost:8000/api/v1/fetch/info/riimuru/${animeIden}`;
           const response = await axios.get(apiUrl);
           const { message, data } = response.data;
           setAnimeId(result.animeId)
           setEpisodeAnime(data.episodesList.map((episode) => episode.episodeId));
+
+
         }
         catch (error) {
           console.error(error);

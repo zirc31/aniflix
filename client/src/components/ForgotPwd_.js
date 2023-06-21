@@ -37,7 +37,7 @@ function ForgotPwd() {
     event.preventDefault();
 
     // try {
-    //   const response = await axios.put('https://aniflix-app.onrender.com/api/v1/user/update', {
+    //   const response = await axios.put('http://localhost:8000/api/v1/user/update', {
     //     email: email,
     //     updateUser: {
     //       password: password,

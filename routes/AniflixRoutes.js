@@ -4,7 +4,7 @@ const router = require('express').Router();
 const ApiBaseURL = process.env.APP_API_BASE_URL;
 // const ApiProvider = process.env.APP_API_PROVIDER;
 
-const enableDevMode = true; // set to false for Production / Live. true for dev mode.
+const enableDevMode = false; // set to false for Production / Live. true for dev mode.
 
 const fs = require('fs');
 const dataSearchJson = '../aniflix/data/dataSearch.json';

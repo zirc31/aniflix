@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
+// ${BaseURLofBE}
+
 const AnimeMovies = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/anime-movies');
+        const response = await fetch(`${BaseURLofBE}/api/v1/fetch/get/riimuru/anime-movies`);
         const data = await response.json();
         setMovies(data.data);
       } catch (error) {

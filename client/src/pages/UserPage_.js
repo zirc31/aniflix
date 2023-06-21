@@ -17,8 +17,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import ImageList from '@mui/material/ImageList';
 
-const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
-// ${BaseURLofBE}
+
 
 const darkTheme = createTheme({
     palette: {
@@ -76,8 +75,7 @@ function UserPage() {
         const username = localStorage.getItem('aniflix_username');
 
         try {
-            const response = await axios.put(`${BaseURLofBE}/api/v1/user/update`, {
-            // const response = await axios.put('https://aniflix-app.onrender.com/api/v1/user/update', {
+            const response = await axios.put('http://localhost:8000/api/v1/user/update', {
                 // userId:userId,
                 username: username, //must use existing username
                 updateUser: {
@@ -97,7 +95,7 @@ function UserPage() {
                 setTimeout(() => {
                     navigate('/login-page');
 
-                }, 1000);
+                }, 3000);
 
 
             } else if (response.status === 404) {
