@@ -12,6 +12,7 @@ import UserProfile from './pages/UserProfile';
 import Logout from './components/Logout';
 import CreateRoom from './pages/CreateRoom';
 import TempSetRoomId from './components/TempSetRoomId';
+import Frontpage from './pages/Frontpage';
 
 
 export const AppContext = createContext();

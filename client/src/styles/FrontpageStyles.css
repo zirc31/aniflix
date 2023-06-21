@@ -50,7 +50,8 @@ body {
 
 .watchchat-container,
 .watchAnime-container,
-.createProfile-container {
+.createProfile-container,
+.anime-list {
   position: relative;
   background-color: black;
   padding-right: 200px;
@@ -106,4 +107,40 @@ body {
 .accordion-container {
   width: 50%;
   margin: 0 auto;
+}
+
+/* Rendered Anime Style */
+
+.title-header {
+  margin-top: 30px;
+  color: rgb(214, 185, 52);
+}
+
+.anime-list {
+  display: flex;
+  list-style-type: none;
+  overflow-x: auto;
+  padding: 0;
+  margin-top: 10px;
+  color: white;
+}
+
+.anime-list li {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.anime-list li img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.anime-list li h3 {
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

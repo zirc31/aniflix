@@ -32,6 +32,12 @@ const Header = () => {
               value={searchTerm}
               onChange={handleInputChange}
               fullWidth
+              inputProps={{
+                style: { color: 'white' },
+              }}
+              InputLabelProps={{
+                style: { color: 'white' },
+              }}
             />
           </Grid>
           <Grid item xs={4}>
@@ -42,7 +48,7 @@ const Header = () => {
         </Grid>
       </div>
       <div className="buttons-container">
-        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
           <Button variant="contained">GET STARTED</Button>
         </Link>
       </div>
