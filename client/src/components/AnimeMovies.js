@@ -9,7 +9,7 @@ const AnimeMovies = () => {
       try {
         const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/anime-movies');
         const data = await response.json();
-        setMovies(data);
+        setMovies(data.data);
       } catch (error) {
         console.error('Error fetching anime movies:', error);
       }
@@ -18,18 +18,28 @@ const AnimeMovies = () => {
     fetchMovies();
   }, []);
 
+  if( movies ){
+    console.log(movies);
+  }
+
   return (
     <div>
-      <h2>Popular Anime Movies</h2>
-      {movies.map((movie) => (
-        <div key={movie.id}>
-          <h3>{movie.title}</h3>
-          <p>{movie.description}</p>
-        </div>
-      ))}
-      <Link to="/anime-movies">
-        <button>More</button>
-      </Link>
+      <h2 className="title-header">Anime Movies</h2>
+      <ul className="anime-list">
+        {!movies ? (
+          <li>Loading...</li>
+        ) : (
+          movies.map((data, index) => (
+            <li key={index}>
+              <Link to="/create-room-options">
+                <img src={data.animeImg} alt={data.animeTitle} />
+              </Link>
+              <h3>{data.animeTitle}</h3>
+              <p>Released Date: {data.releasedDate}</p>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };

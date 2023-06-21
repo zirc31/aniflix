@@ -9,7 +9,7 @@ const RecentReleases = () => {
       try {
         const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/recent-release');
         const data = await response.json();
-        setReleases(data);
+        setReleases(data.data);
       } catch (error) {
         console.error('Error fetching recent releases:', error);
       }
@@ -20,15 +20,22 @@ const RecentReleases = () => {
 
   return (
     <div>
-      <h2>Recent Releases</h2>
-      <ul>
-        {releases.slice(0, 5).map((release) => (
-          <li key={release.id}>{release.title}</li>
-        ))}
+      <h2 className="title-header">Recent Releases</h2>
+      <ul className="anime-list">
+        {!releases ? (
+          <li>Loading...</li>
+        ) : (
+          releases.map((data, index) => (
+            <li key={index}>
+              <Link to="/create-room-options">
+                <img src={data.animeImg} alt={data.animeTitle} />
+              </Link>
+              <h3>{data.animeTitle}</h3>
+              <p>Episode: {data.episodeNum}</p>
+            </li>
+          ))
+        )}
       </ul>
-      <Link to="/recent-release">
-        <button>More</button>
-      </Link>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PopularAnime = () => {
   const [animeList, setAnimeList] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPopularAnime();
@@ -13,31 +12,35 @@ const PopularAnime = () => {
     try {
       const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/popular');
       const data = await response.json();
-      const firstFiveAnime = data.slice(0, 5);
-      setAnimeList(firstFiveAnime);
+      setAnimeList(data.data);
     } catch (error) {
       console.error('Error fetching popular anime:', error);
     }
   };
 
-  const handleMoreClick = () => {
-    navigate('/popular');
-  };
+  if(animeList) {
+    console.log(animeList);
+  }
 
   return (
     <div>
-      <h2>Popular Anime</h2>
-      {animeList.map((anime) => (
-        <div key={anime.id}>
-          <h3>{anime.title}</h3>
-          <p>{anime.description}</p>
-        </div>
-      ))}
-      <button onClick={handleMoreClick}>
-        <Link to="/popular">MORE</Link>
-      </button>
+      <h2 className="title-header">Popular Anime</h2>
+      <ul className="anime-list">
+        {!animeList ? (
+          <li>Loading...</li>
+        ) : (
+          animeList.map((data, index) => (
+            <li key={index}>
+              <Link to="/create-room-options">
+                <img src={data.animeImg} alt={data.animeTitle} />
+              </Link>
+              <h3>{data.animeTitle}</h3>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };
 
-export default PopularAnime;
+export default PopularAnime; 

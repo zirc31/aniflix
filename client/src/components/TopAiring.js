@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const TopAiring = () => {
   const [topAiring, setTopAiring] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/v1/fetch/get/riimuru/top-airing');
         const data = await response.json();
-        setTopAiring(data);
+        setTopAiring(data.data);
       } catch (error) {
         console.error('Error fetching top airing data:', error);
       }
@@ -19,19 +18,27 @@ const TopAiring = () => {
     fetchData();
   }, []);
 
-  const handleMoreClick = () => {
-    navigate('/top-airing');
-  };
+  if( topAiring ) {
+    console.log(topAiring);
+  }
 
   return (
     <div>
-      <h1>Top Airing Shows</h1>
-      <ul>
-        {topAiring.map(show => (
-          <li key={show.id}>{show.title}</li>
-        ))}
+      <h2 className="title-header">Top Airing</h2>
+      <ul className="anime-list">
+        {!topAiring ? (
+          <li>Loading...</li>
+        ) : (
+          topAiring.map((data, index) => (
+            <li key={index}>
+              <Link to="/create-room-options">
+                <img src={data.animeImg} alt={data.animeTitle} />
+              </Link>
+              <h3>{data.animeTitle}</h3>
+            </li>
+          ))
+        )}
       </ul>
-      <button onClick={handleMoreClick}>More</button>
     </div>
   );
 };

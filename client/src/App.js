@@ -31,8 +31,8 @@ const App = () => {
     <AppContext.Provider value={{ isTokenExist, setIsTokenExist }}>
       <div className="App">
         <Routes>
-          <Route path='/' element={<Homepage /> } />
-          <Route path='/chatroom' element={<ChatRoom roomId={`101`}/> } />
+          <Route path='/' element={<Frontpage /> } />
+          <Route path='/chatroom' element={<ChatRoom /> } />
           <Route path='/create-room-options' element={<CreateRoomOptions /> } />  
           <Route path='/room' element={<Room /> } />  
           <Route path='/login-page' element={<LoginPage /> } />  
