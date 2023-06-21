@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-const http = require('http');
-const { Server } = require('socket.io');
+// const http = require('http');
+// const { Server } = require('socket.io');
 
 const MongoDbUser = process.env.MONGODB_USER;
 const MongoDbPass = process.env.MONGODB_PASS;
@@ -28,50 +28,50 @@ mongoose.connect(`mongodb+srv://${MongoDbUser}:${MongoDbPass}@${MongoDbCluster}/
 // }
 
 const PORT = process.env.APP_PORT;
-const ioPORT = process.env.APP_PORT_IO;
+// const ioPORT = process.env.APP_PORT_IO;
 const BaseURL = `/api/v1`;
 
 const app = express();
-const ioServer = express();
+// const ioServer = express();
 
-// setup server using socket.io
-ioServer.use(cors());
-const server = http.createServer(ioServer);
-const io = new Server( server, {
-    cors:{
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    }
-    // cors:{
-    //     origin:"*"
-    // }
-});
+// // setup server using socket.io
+// ioServer.use(cors());
+// const server = http.createServer(ioServer);
+// const io = new Server( server, {
+//     cors:{
+//         origin: "http://localhost:3000",
+//         methods: ["GET", "POST"]
+//     }
+//     // cors:{
+//     //     origin:"*"
+//     // }
+// });
 
-// make sure that socket.io is connected.
-// listen to "connection" events
-io.on('connection', (socket) => {
-    console.log(`User connected with Socket Id: ${socket.id}`);
+// // make sure that socket.io is connected.
+// // listen to "connection" events
+// io.on('connection', (socket) => {
+//     console.log(`User connected with Socket Id: ${socket.id}`);
 
-    socket.on("join_room", (data) => {
-        socket.join(data);
-        console.log(`User with ID: ${socket.id} joined room: ${data}.`);
-    });
+//     socket.on("join_room", (data) => {
+//         socket.join(data);
+//         console.log(`User with ID: ${socket.id} joined room: ${data}.`);
+//     });
 
-    // listen to the event called "send_message"
-    socket.on("send_message", (data) => {
-        console.log(data);
-        // when a user send a message, socket will received the user information including the message.
-        // then send it to another event which is receive_message
-        // and send to to everyone in the roomId
-        socket.to(data.roomId).emit("receive_message", data);
-    });
+//     // listen to the event called "send_message"
+//     socket.on("send_message", (data) => {
+//         console.log(data);
+//         // when a user send a message, socket will received the user information including the message.
+//         // then send it to another event which is receive_message
+//         // and send to to everyone in the roomId
+//         socket.to(data.roomId).emit("receive_message", data);
+//     });
 
-    // if the browser being used by the user disconnected.
-    socket.on('disconnect', (data) => {
-        console.log( `User disconnected: `, socket.id );
-    });
+//     // if the browser being used by the user disconnected.
+//     socket.on('disconnect', (data) => {
+//         console.log( `User disconnected: `, socket.id );
+//     });
 
-});
+// });
 
 // Routes
 const UserRoutes = require('./routes/UserRoutes');
@@ -101,4 +101,4 @@ app.use( `${BaseURL}/fetch`, AniflixRoutes );
 app.use( `${BaseURL}/chat`, ChatRoutes );
 
 app.listen( PORT, () => { console.log(`App Server running on port ${PORT}.`) } );
-server.listen( ioPORT, () => console.log( `Socket Server listening on port ${ioPORT}` ));
+// server.listen( ioPORT, () => console.log( `Socket Server listening on port ${ioPORT}` ));

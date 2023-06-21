@@ -6,16 +6,16 @@ const ApiBaseURL = process.env.APP_API_BASE_URL;
 
 const enableDevMode = false; // set to false for Production / Live. true for dev mode.
 
-const fs = require('fs');
-const dataSearchJson = '../aniflix/data/dataSearch.json';
-const dataInfoJson = '../aniflix/data/dataInfo.json';
-const dataWatchJson = '../aniflix/data/dataWatch.json';
+// const fs = require('fs');
+// const dataSearchJson = '../aniflix/data/dataSearch.json';
+// const dataInfoJson = '../aniflix/data/dataInfo.json';
+// const dataWatchJson = '../aniflix/data/dataWatch.json';
 
-const dataRecentRelease = '../aniflix/data/dataRecentRelease.json';
-const dataNewSeason = '../aniflix/data/dataNewSeason.json';
-const dataPopular = '../aniflix/data/dataPopular.json';
-const dataAnimeMovies = '../aniflix/data/dataAnimeMovies.json';
-const dataTopAiring = '../aniflix/data/dataTopAiring.json';
+// const dataRecentRelease = '../aniflix/data/dataRecentRelease.json';
+// const dataNewSeason = '../aniflix/data/dataNewSeason.json';
+// const dataPopular = '../aniflix/data/dataPopular.json';
+// const dataAnimeMovies = '../aniflix/data/dataAnimeMovies.json';
+// const dataTopAiring = '../aniflix/data/dataTopAiring.json';
 
 let aniflixSearchData;
 let aniflixInfoData;
@@ -27,65 +27,65 @@ let aniflixPopular;
 let aniflixAnimeMovies;
 let aniflixTopAiring;
 
-// for search and room data endpoint.
-fs.readFile( dataSearchJson, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixSearchData" loaded successfully!`);
-    aniflixSearchData = JSON.parse(data.toString());
-});
-fs.readFile( dataInfoJson, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixInfoData" loaded successfully!`);
-    aniflixInfoData = JSON.parse(data.toString());
-});
-fs.readFile( dataWatchJson, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixWatchData" loaded successfully!`);
-    aniflixWatchData = JSON.parse(data.toString());
-});
+// // for search and room data endpoint.
+// fs.readFile( dataSearchJson, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixSearchData" loaded successfully!`);
+//     aniflixSearchData = JSON.parse(data.toString());
+// });
+// fs.readFile( dataInfoJson, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixInfoData" loaded successfully!`);
+//     aniflixInfoData = JSON.parse(data.toString());
+// });
+// fs.readFile( dataWatchJson, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixWatchData" loaded successfully!`);
+//     aniflixWatchData = JSON.parse(data.toString());
+// });
 
-// for Frontpage data endpoint.
-fs.readFile( dataRecentRelease, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixRecentRelease" loaded successfully!`);
-    aniflixRecentRelease = JSON.parse(data.toString());
-});
-fs.readFile( dataNewSeason, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixNewSeason" loaded successfully!`);
-    aniflixNewSeason = JSON.parse(data.toString());
-});
-fs.readFile( dataPopular, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixPopular" loaded successfully!`);
-    aniflixPopular = JSON.parse(data.toString());
-});
-fs.readFile( dataAnimeMovies, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixAnimeMovies" loaded successfully!`);
-    aniflixAnimeMovies = JSON.parse(data.toString());
-});
-fs.readFile( dataTopAiring, (error, data) => {
-    if (error) {
-        return console.error(error);
-    }
-    console.log(`JSON File for "aniflixTopAiring" loaded successfully!`);
-    aniflixTopAiring = JSON.parse(data.toString());
-});
+// // for Frontpage data endpoint.
+// fs.readFile( dataRecentRelease, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixRecentRelease" loaded successfully!`);
+//     aniflixRecentRelease = JSON.parse(data.toString());
+// });
+// fs.readFile( dataNewSeason, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixNewSeason" loaded successfully!`);
+//     aniflixNewSeason = JSON.parse(data.toString());
+// });
+// fs.readFile( dataPopular, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixPopular" loaded successfully!`);
+//     aniflixPopular = JSON.parse(data.toString());
+// });
+// fs.readFile( dataAnimeMovies, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixAnimeMovies" loaded successfully!`);
+//     aniflixAnimeMovies = JSON.parse(data.toString());
+// });
+// fs.readFile( dataTopAiring, (error, data) => {
+//     if (error) {
+//         return console.error(error);
+//     }
+//     console.log(`JSON File for "aniflixTopAiring" loaded successfully!`);
+//     aniflixTopAiring = JSON.parse(data.toString());
+// });
 
 
 
