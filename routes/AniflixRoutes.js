@@ -1,6 +1,8 @@
 const router = require('express').Router();
 // const axios = require('axios');
 
+const fetch = require("node-fetch");
+
 const ApiBaseURL = process.env.APP_API_BASE_URL;
 // const ApiProvider = process.env.APP_API_PROVIDER;
 
