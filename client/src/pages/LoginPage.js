@@ -42,7 +42,7 @@ function LoginPage() {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [snackbar, setSnackbar] = useState(false);
-  const [register, setRegister] = useState(false); //replace true if register is auto display
+  const [register, setRegister] = useState(true); //replace true if register is auto display
   const [data, setData] = useState('');
   const [token, setToken] = useState('');
   const { isTokenExist, setIsTokenExist } = useContext(AppContext);
@@ -71,14 +71,17 @@ function LoginPage() {
         : { username, password };
 
       const response = await axios.post(url, requestData);
-      if (response.status === 200 || response.status === 201) {
+      if (response.status === 201) {
+        setRegister(false)
+        setSuccessMessage(response.data.message);
+        setSnackbar(true);
+
+      } else if (response.status === 200) {
         setData(response.data);
 
         // setToken(`aniflix_${response.data.token}`);
         setToken(response.data.token);
 
-        setSuccessMessage(response.data.message);
-        setSnackbar(true);
         setIsTokenExist(true);
 
         // localStorage.setItem('aniflixT', `aniflix_${response.data.token}`);
@@ -253,4 +256,4 @@ function LoginPage() {
     </ThemeProvider>
   );
 }
-export default LoginPage
+export default LoginPage;
