@@ -154,12 +154,12 @@ function UserProfile() {
         else setChangeChoice(false)
     };
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        console.log(firstName);
-        console.log(token);
-        console.log(data)
-    }, [data, firstName]);
+    //     console.log(firstName);
+    //     console.log(token);
+    //     console.log(data)
+    // }, [data, firstName]);
 
 
     return (

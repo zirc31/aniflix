@@ -96,7 +96,6 @@ function Room() {
       localStorage.setItem('fromRoom', 'true');
       setTimeout(() => {
         navigate('/login-page');
-
       }, 1000);
     } else {
       setIsTokenExist(true);
@@ -116,7 +115,8 @@ function Room() {
     //         navigate('/login-page', { state: { roomUID: roomUID, roomLoc: false }})
     //     }, 3000)
     // }
-  }, [navigate, setIsTokenExist, setUsername])
+  }, [])
+  // }, [navigate, setIsTokenExist, setUsername])
 
   const handleSnackbar = () => {
     setSnackbar(false);

@@ -103,7 +103,7 @@ function CreateRoom() {
     } else {
         setIsTokenExist(true);
     }
-  },[]);
+  },[]); // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <ThemeProvider theme={darkTheme}>
           <Container component="main" maxWidth="xs">

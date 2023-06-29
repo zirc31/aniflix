@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, createContext } from 'react';
 import axios from 'axios';
 import { Box, Divider } from '@mui/material';
 import ChatArea from '../components/ChatArea';
-import ChatGroupAvatar from '../components/ChatGroupAvatar';
+// import ChatGroupAvatar from '../components/ChatGroupAvatar';
 import ChatReceiver, { ChatSender } from '../components/ChatMessage';
 
 import io from 'socket.io-client';
@@ -107,7 +107,8 @@ const ChatRoom = ( props ) => {
             // add the new message that have been sent to receive_message.
             setChatList((list) => [...list, data]);
         });
-    }, [socket]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // }, [socket]);
 
   return (
     <ChatContext.Provider value={{ message, setMessage, chatList, setChatList, chatAvatar, setChatAvatar, chatListCounter, setChatListCounter }}>
