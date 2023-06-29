@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const RoomSchema  = mongoose.Schema({
     roomid: String,
     roomUID: String,
-    password:   String,
+    password: String,
+    animeid: String, // added by zirc.
+    episodeid: String, // added by zirc.
     deleted: { type: Boolean, default: false },
 });
 

@@ -16,8 +16,7 @@ router.get('/:roomUID', (request, response) => {
 router.post('/create', (request, response) => 
 {
     // const { roomid } = request.body;
-    const roomid = request.body.roomid;
-
+    // These are renee's codes
     // Room.findOne({ roomid, deleted: false })
     // .then(dbResponse =>
     //     {
@@ -25,7 +24,6 @@ router.post('/create', (request, response) =>
     //         {
     //             response.status( 400 ).send({ error: 'Room id is taken.' });
     //         }
-            
     //         else
     //         {
     //             bcrypt.hash( request.body.password, 10 )
@@ -38,11 +36,14 @@ router.post('/create', (request, response) =>
     //                         console.log( data );
     //                         response.status( 201 ).send({  message: "Room created" });
     //                     });
-
     //             })
     //         }
     //     })
 
+    // modified by zirc.
+    const roomid = request.body.roomid;
+    const animeid = request.body.animeid;
+    const episodeid = request.body.episodeid;
     Room.findOne({ roomid: roomid, deleted: false }).then( dbResponse => {
         // if Room not exist
         if( !dbResponse ) {
@@ -52,12 +53,16 @@ router.post('/create', (request, response) =>
                 if( err ) {
                     console.error(err);
                 }
-
                 const roomId = "id" + uuidv4();
-                const newRoom = new Room({roomid, roomUID:roomId, password: hash, deleted: false});
+                const newRoom = new Room({roomid, roomUID:roomId, password: hash, animeid: animeid, episodeid: episodeid, deleted: false});
                 newRoom.save().then( data => {
                     console.log({ status: 201, message: `You have successfully created a Room!`, roomUID: roomId });
-                    return response.status( 201 ).send( { message: `You have successfully created a Room!`, roomUID: roomId } );
+                    return response.status( 201 ).send({
+                        message: `You have successfully created a Room!`,
+                        roomUID: roomId,
+                        animeid: animeid,
+                        episodeid: episodeid
+                    });
                 });
             });
         } else {
@@ -86,7 +91,12 @@ router.post('/join', (request, response) => {
                     return response.status( 404 ).send({ error: `Invalid credentials!` });
                 }else{
                     console.log({ status: 200, message: 'You have joined the room successfully!', roomUID: dbResponse.roomUID });
-                    return response.status( 200 ).send( { message: 'You have joined the room successfully!', roomUID: dbResponse.roomUID } );
+                    return response.status( 200 ).send({
+                        message: 'You have joined the room successfully!',
+                        roomUID: dbResponse.roomUID,
+                        animeid: dbResponse.animeid,
+                        episodeid: dbResponse.episodeid
+                    });
                 }
             });
         }

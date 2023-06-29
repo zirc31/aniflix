@@ -50,12 +50,18 @@ function CreateRoom() {
         // ? 'https://aniflix-app.onrender.com/api/v1/room/create'
         // : 'https://aniflix-app.onrender.com/api/v1/room/join';
 
-        const response = await axios.post(url, { roomid, password });
+        const aniflixAnimeId = localStorage.getItem("aniflix_animeId");
+        const aniflixEpisodeId = localStorage.getItem("aniflix_episodeId");
+
+        const response = await axios.post(url, { roomid, password, animeid: aniflixAnimeId, episodeid: aniflixEpisodeId });
         const roomUID = response.data.roomUID; // Access the roomUID from the response
+        const animeid = response.data.animeid;
+        const episodeid = response.data.episodeid;
 
         // localStorage.setItem('aniflix_roomId', response.data.roomUID);
         localStorage.setItem('aniflix_roomId', roomUID);
-
+        localStorage.setItem('aniflix_animeId', animeid);
+        localStorage.setItem('aniflix_episodeId', episodeid);
       
       if (response.status === 200 || response.status === 201 ){
           setSuccessMessage(response.data.message);

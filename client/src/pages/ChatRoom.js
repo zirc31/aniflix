@@ -94,6 +94,8 @@ const ChatRoom = ( props ) => {
 
     const joinRoom = () => {
         if( chatUsername !== '' && chatRoom !== ''  ) {
+            // disconnect in previous room
+            socket.emit('forceDisconnect');
             // passed the room id to the backend, so the user will join that room.
             socket.emit("join_room", chatRoom);
         }
