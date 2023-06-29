@@ -24,6 +24,7 @@ import { AppContext } from '../App';
 import { useContext } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const BaseURLofBE = process.env.REACT_APP_BE_BASEURL;
 // ${BaseURLofBE}
@@ -63,7 +64,7 @@ function CreateRoomOptions() {
   const [snackbar, setSnackbar] = useState(false);
   const [existAnimeId, setExistAnimeId] = useState(false);
   const [existEpisodeId, setExistEpisdeId] = useState(false);
-
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const navigate = useNavigate();
   // const location = useLocation();
@@ -73,6 +74,7 @@ function CreateRoomOptions() {
 
 
   const handleSearch = async (event) => {
+    setIsLoading(true);
     try {
       event.preventDefault();
       const apiUrl = `${BaseURLofBE}/api/v1/fetch/search/riimuru/title?keyword=${queryKeyword}`;
@@ -80,8 +82,8 @@ function CreateRoomOptions() {
       const response = await axios.get(apiUrl);
       const { message, data } = response.data;
 
-
       setSearchResults(data);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
       setErrorMessage('Error occurred while searching. Please try again.');
@@ -210,6 +212,17 @@ function CreateRoomOptions() {
                   <TextField id="outlined-basic" label="Search" variant="outlined" value={queryKeyword} onChange={(e) =>
                     setQueryKeyword(e.target.value)} size="small" />
                   <Button onClick={handleSearch} size="small">Search</Button>
+                  {
+                    isLoading ?
+                    <>
+                      <Box mt={3} sx={{ width: '100%' }}>
+                        <LinearProgress />
+                      </Box>
+                    </>
+                    :
+                    <>
+                    </>
+                  }
                 </CardContent>
                 <Card sx={{ maxHeight: 250, overflowX: 'auto' }}>
                   <ImageList sx={{ display: 'flex', flexWrap: 'nowrap', gap: 1, padding: 2 }} cols={3}>
