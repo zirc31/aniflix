@@ -15,33 +15,56 @@ router.get('/:roomUID', (request, response) => {
 
 router.post('/create', (request, response) => 
 {
-    const { roomid } = request.body;
+    // const { roomid } = request.body;
+    const roomid = request.body.roomid
 
-    Room.findOne({ roomid, deleted: false })
-    .then(dbResponse =>
-        {
-            if(dbResponse)
-            {
-                response.status( 400 ).send({ error: 'Room id is taken.' });
-            }
+    // Room.findOne({ roomid, deleted: false })
+    // .then(dbResponse =>
+    //     {
+    //         if(dbResponse)
+    //         {
+    //             response.status( 400 ).send({ error: 'Room id is taken.' });
+    //         }
             
-            else
-            {
-                bcrypt.hash( request.body.password, 10 )
-                .then((hash, err) =>
-                {
-                    const roomId = "id" + uuidv4();
-                    const newRoom = new Room({roomid, roomUID:roomId, password: hash, deleted: false});
-                    newRoom.save().then( data => 
-                        {
-                            console.log( data );
-                            response.status( 201 ).send({  message: "Room created" });
-                        });
+    //         else
+    //         {
+    //             bcrypt.hash( request.body.password, 10 )
+    //             .then((hash, err) =>
+    //             {
+    //                 const roomId = "id" + uuidv4();
+    //                 const newRoom = new Room({roomid, roomUID:roomId, password: hash, deleted: false});
+    //                 newRoom.save().then( data => 
+    //                     {
+    //                         console.log( data );
+    //                         response.status( 201 ).send({  message: "Room created" });
+    //                     });
 
-                })
-            }
-        })
-    
+    //             })
+    //         }
+    //     })
+
+    Room.findOne({ roomid: roomid, deleted: false }).then( dbResponse => {
+        // if Room not exist
+        if( !dbResponse ) {
+            bcrypt.hash( request.body.password, 10 )
+            .then((hash, err) =>
+            {
+                if( err ) {
+                    console.error(err);
+                }
+
+                const roomId = "id" + uuidv4();
+                const newRoom = new Room({roomid, roomUID:roomId, password: hash, deleted: false});
+                newRoom.save().then( data => {
+                    console.log({ status: 201, message: 'You have successfully created a Room!', roomUID: roomId });
+                });
+            });
+        } else {
+        // else Room exist
+            console.log({ status: 400, error: `Create room failed, Room id is taken!` });
+            return response.status( 400 ).send( { error: `Create room failed, Room id is taken!` } );
+        }
+    });
 
 });
 
@@ -61,8 +84,8 @@ router.post('/join', (request, response) => {
                     console.log({ status: 404, error: `Invalid credentials!` });
                     return response.status( 404 ).send({ error: `Invalid credentials!` });
                 }else{
-                    console.log({ status: 200, message: 'Login success!', roomUID: dbResponse.roomUID });
-                    return response.status( 200 ).send( { message: 'Login success!', roomUID: dbResponse.roomUID } );
+                    console.log({ status: 200, message: 'You have joined the room successfully!', roomUID: dbResponse.roomUID });
+                    return response.status( 200 ).send( { message: 'You have joined the room successfully!', roomUID: dbResponse.roomUID } );
                 }
             });
         }

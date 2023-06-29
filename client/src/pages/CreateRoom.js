@@ -53,7 +53,8 @@ function CreateRoom() {
         const response = await axios.post(url, { roomid, password });
         const roomUID = response.data.roomUID; // Access the roomUID from the response
 
-        localStorage.setItem('aniflix_roomId', response.data.roomUID);
+        // localStorage.setItem('aniflix_roomId', response.data.roomUID);
+        localStorage.setItem('aniflix_roomId', roomUID);
 
       
       if (response.status === 200 || response.status === 201 ){
