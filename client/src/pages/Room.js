@@ -15,7 +15,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
 import Snackbar from '@mui/material/Snackbar';
@@ -145,13 +146,39 @@ function Room() {
               <Card sx={{ height: '100%', display: 'flex' }}>
                 <CardMedia component="div" sc={{ margin: 2 }} />
                 <CardActions sx={{ display: 'flex', flexDirection: 'column', marginTop: 6 }} >
+                  <Box mt={1} mb={2} sx={{ display: 'flex' }} >
+                    <Box mr={1} >
+                      <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+                      <Button variant="contained">SEARCH OTHER ANIME</Button>
+                      </Link>
+                    </Box>
+                    <Box mr={1} >
+                      <Link to="/create-room" style={{ textDecoration: 'none' }}>
+                        <Button variant="contained">JOIN OTHER ROOM</Button>
+                      </Link>
+                    </Box>
+                    {
+                      isTokenExist ?
+                      <Box >
+                        <Link to="/logout" style={{ textDecoration: 'none' }}>
+                          <Button variant="contained">LOGOUT</Button>
+                        </Link>
+                      </Box>
+                      :
+                      <Box >
+                        <Link to="/login-page" style={{ textDecoration: 'none' }}>
+                          <Button variant="contained">GET STARTED</Button>
+                        </Link>
+                      </Box>
+                    }
+                  </Box>
                   <Typography>{selectedAnime}</Typography>
                   <ReactPlayer url={episodeId} controls width="100%" height="450px" />
                 </CardActions>
               </Card>
             </Grid>
             <Grid item xs={4} >
-              <ChatRoom/>
+              <ChatRoom roomId={ roomId } />
               <Card
                 sx={{ display: 'flex' }}>
                 <CardMedia

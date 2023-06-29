@@ -34,7 +34,8 @@ const ChatRoom = ( props ) => {
     // Chat
     const [ chatAvatar, setChatAvatar ] = useState('');
     const [ chatUsername, setChatUsername ] = useState('');
-    const [ chatRoom, setChatRoom ] = useState( localRoomId );
+    // const [ chatRoom, setChatRoom ] = useState( localRoomId );
+    const [ chatRoom, setChatRoom ] = useState( '' );
     const [ chatList, setChatList ] = useState([]);
     const [ chatListCounter, setChatListCounter ] = useState(0);
 
@@ -52,8 +53,15 @@ const ChatRoom = ( props ) => {
         } catch (error) {
             console.error(error);
         };
+
+        // define chatRoom
+        localRoomId ? setChatRoom( localRoomId ) : setChatRoom( props.roomId );
+
     };
     getUserData();
+
+    console.log('localRoomId: ', localRoomId);
+    console.log('props.roomId: ', props.roomId);
 
     // // check for chat history in db
     // const getChatHistory = async () => {

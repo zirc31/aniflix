@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Button, TextField, Grid } from '@mui/material';
+import { Button, TextField, Grid, Box } from '@mui/material';
 import logo from '../images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppContext } from '../App';
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+
+  const { isTokenExist, setIsTokenExist } = useContext(AppContext);
 
   const handleSearch = () => {
     // Navigate to the search page with the search keyword
@@ -46,14 +50,37 @@ const Header = () => {
             </Button>
           </Grid>
         </Grid> */}
-        <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+        {/* <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
           <Button variant="contained">SEARCH ANIME</Button>
-        </Link>
+        </Link> */}
       </div>
       <div className="buttons-container">
-        <Link to="/login-page" style={{ textDecoration: 'none' }}>
-          <Button variant="contained">GET STARTED</Button>
-        </Link>
+        <Box sx={{ display: 'flex' }} >
+          <Box mr={1} >
+            <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+            <Button variant="contained">SEARCH ANIME</Button>
+            </Link>
+          </Box>
+          <Box mr={1} >
+            <Link to="/create-room" style={{ textDecoration: 'none' }}>
+              <Button variant="contained">JOIN ROOM</Button>
+            </Link>
+          </Box>
+          {
+            isTokenExist ?
+            <Box >
+              <Link to="/logout" style={{ textDecoration: 'none' }}>
+                <Button variant="contained">LOGOUT</Button>
+              </Link>
+            </Box>
+            :
+            <Box >
+              <Link to="/login-page" style={{ textDecoration: 'none' }}>
+                <Button variant="contained">GET STARTED</Button>
+              </Link>
+            </Box>
+          }
+        </Box>
       </div>
     </div>
   );

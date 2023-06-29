@@ -4,7 +4,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -165,6 +166,34 @@ function UserProfile() {
         <ThemeProvider theme={darkTheme}>
             <Container component="main" maxWidth="md">
                 <CssBaseline />
+                <div className="buttons-container">
+                    <Box sx={{ display: 'flex' }} >
+                    <Box mr={1} >
+                        <Link to="/create-room-options" style={{ textDecoration: 'none' }}>
+                        <Button variant="contained">SEARCH ANIME</Button>
+                        </Link>
+                    </Box>
+                    <Box mr={1} >
+                        <Link to="/create-room" style={{ textDecoration: 'none' }}>
+                        <Button variant="contained">JOIN ROOM</Button>
+                        </Link>
+                    </Box>
+                    {
+                        isTokenExist ?
+                        <Box >
+                        <Link to="/logout" style={{ textDecoration: 'none' }}>
+                            <Button variant="contained">LOGOUT</Button>
+                        </Link>
+                        </Box>
+                        :
+                        <Box >
+                        <Link to="/login-page" style={{ textDecoration: 'none' }}>
+                            <Button variant="contained">GET STARTED</Button>
+                        </Link>
+                        </Box>
+                    }
+                    </Box>
+                </div>
                 {!showUserPage ? (
                     <Paper
                         sx={{
