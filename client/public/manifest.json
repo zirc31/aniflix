@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Aniflix",
+  "name": "Aniflix - An Anime Streaming App with Chat Room Integration",
   "icons": [
     {
       "src": "favicon.ico",
