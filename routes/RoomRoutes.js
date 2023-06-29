@@ -16,7 +16,7 @@ router.get('/:roomUID', (request, response) => {
 router.post('/create', (request, response) => 
 {
     // const { roomid } = request.body;
-    const roomid = request.body.roomid
+    const roomid = request.body.roomid;
 
     // Room.findOne({ roomid, deleted: false })
     // .then(dbResponse =>
@@ -56,7 +56,8 @@ router.post('/create', (request, response) =>
                 const roomId = "id" + uuidv4();
                 const newRoom = new Room({roomid, roomUID:roomId, password: hash, deleted: false});
                 newRoom.save().then( data => {
-                    console.log({ status: 201, message: 'You have successfully created a Room!', roomUID: roomId });
+                    console.log({ status: 201, message: `You have successfully created a Room!`, roomUID: roomId });
+                    return response.status( 201 ).send( { message: `You have successfully created a Room!`, roomUID: roomId } );
                 });
             });
         } else {
